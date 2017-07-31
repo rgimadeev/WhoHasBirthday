@@ -3,9 +3,7 @@ package ru.whohasbirthday;
 import java.io.IOException;
 import org.apache.commons.cli.ParseException;
 
-/**
- * Created by rgimadeev on 25.07.2017.
- */
+
 public class main {
 
 

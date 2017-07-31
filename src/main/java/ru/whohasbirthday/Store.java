@@ -2,9 +2,6 @@ package ru.whohasbirthday;
 
 import java.util.ArrayList;
 
-/**
- * Created by rgimadeev on 27.07.2017.
- */
 public class Store {
     ArrayList<User> person=new ArrayList<User>();
 

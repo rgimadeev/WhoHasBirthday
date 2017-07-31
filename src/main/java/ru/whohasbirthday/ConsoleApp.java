@@ -1,9 +1,5 @@
 package ru.whohasbirthday;
 
-/**
- * Created by rgimadeev on 26.07.2017.
- */
-
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,9 +18,9 @@ public class ConsoleApp {
                 ur.printData(scn.next(),scn.next(),scn.next(),scn.next());break;
             case "printBirthDays":
                 try {
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
                     String dtStr = scn.next();
-                    SimpleDateFormat sdf2 = new SimpleDateFormat("dd.MM.yyyy");
+                    SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy.MM.dd");
                     String dtStr2 = scn.next();
                     Date dt=null;
                     Date dt2=null;
@@ -36,7 +32,6 @@ public class ConsoleApp {
                     }
                     ur.printBirthDays(dt,dt2);
                 } catch (ParseException e) {
-                    System.out.println("Необходимо указать все параметры: beginDate, endDate");
                 }
                 break;
             case "printClosestBirthDays":

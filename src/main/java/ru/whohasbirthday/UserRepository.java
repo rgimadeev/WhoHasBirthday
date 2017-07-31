@@ -8,10 +8,8 @@ import java.util.Formatter;
 import java.util.Calendar;
 import java.util.Date;
 import static java.lang.Math.abs;
+import static java.lang.Math.round;
 
-/**
- * Created by rgimadeev on 26.07.2017.
- */
 public class UserRepository {
     private static final String FILENAME = "C:\\Users\\rgimadeev\\IdeaProjects\\WhoHasBirthday\\file.json";
 
@@ -39,14 +37,12 @@ public class UserRepository {
             e.printStackTrace();
         }
     }
-
     public void printData(String name, String surname, String patrname, String birthdate) {
         Gson gson = new Gson();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(FILENAME));
             String read = reader.readLine();
             Store st = null;
-
             if (read != null) {
                 st = gson.fromJson(read, Store.class);
             } else {
@@ -59,14 +55,12 @@ public class UserRepository {
                     System.out.println(gu.getName() + " " + gu.getSurname() + " " + gu.getPatrname() + ". День рождения: " + gu.getBirthdate());
                 }
             }
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
     public void printBirthDays(Date bdfrom, Date bdto)  {
         Gson gson = new Gson();
 
@@ -81,7 +75,7 @@ public class UserRepository {
             }
             for (int i = 0; i < st.getPerson().size(); i++) {
                 User gu = st.getPerson().get(i);
-                SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");//задаю формат даты
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");//задаю формат даты
                 String gud = st.getPerson().get(i).getBirthdate();
                 Date date = formatter.parse(gud);
                 String bdf = String.valueOf(bdfrom);//преобразование в String для сравнение с null
@@ -102,8 +96,6 @@ public class UserRepository {
         } catch (NullPointerException ne){
             System.out.println("Необходимо указать все параметры: beginDate, endDate");
         }
-
-
     }
     public void printClosestBirthDays(int daysCount) {
         Gson gson = new Gson();
@@ -118,20 +110,28 @@ public class UserRepository {
             }
             for (int i = 0; i < st.getPerson().size(); i++) {
                 User gu = st.getPerson().get(i);
-                SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");//задаю формат даты
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");//задаю формат даты
                 String gud = st.getPerson().get(i).getBirthdate();
                 Date dt = formatter.parse(gud);//перевод строки gud в Date
                 Date dt2 = new Date();
                 Date currentDate=new Date();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");//задаю формат даты для текущей даты
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");//задаю формат даты для текущей даты
                 String cd=dateFormat.format(currentDate);//перевод текущей даты в строку
                 Date curDate=formatter.parse(cd);// перевод текущей даты в формате String в формат Date( для сравнения с датами пользователя)
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(dt);//установление даты в календаре для вычисление первой даты(для кол-во оставшихся дней до дня рождения)
+                cal.set(Calendar.HOUR_OF_DAY, 0);
+                cal.set(Calendar.MINUTE, 0);
+                cal.set(Calendar.SECOND, 0);
+                cal.set(Calendar.MILLISECOND, 0);
                 Calendar cal2 = Calendar.getInstance();
                 cal2.setTime(dt2);//установление даты в календаре для вычисления второй даты(для кол-ва оставшихся дней до дня рождения)
+                cal2.set(Calendar.HOUR_OF_DAY, 0);
+                cal2.set(Calendar.MINUTE, 0);
+                cal2.set(Calendar.SECOND, 0);
+                cal2.set(Calendar.MILLISECOND, 0);
                 long diff = cal.getTimeInMillis() - cal2.getTimeInMillis();
-                long days =  (long)(diff / (24 * 60 * 60 * 1000));//миллисекунды / (24ч * 60мин * 60сек * 1000мс)
+                long days = Math.round(diff / (1000L*60L*60L*24L));//миллисекунды / (24ч * 60мин * 60сек * 1000мс)
                 Calendar cal3 = Calendar.getInstance();//для определения конечной даты
                 cal3.setTime(dt2);
                 cal3.add(Calendar.DAY_OF_MONTH,daysCount);
@@ -140,7 +140,8 @@ public class UserRepository {
                 {
                     System.out.println(gu.getName() + " " + gu.getSurname() + " " + gu.getPatrname() + ". День рождения: " + gu.getBirthdate());
                     if (days == 0) {
-                        System.out.println(" (День рождения сегодня)");}
+                        System.out.println(" (День рождения сегодня)");
+                    }
                         else {
                     System.out.println(" (До дня рождения осталось " + days + " дн.) ");
                         }

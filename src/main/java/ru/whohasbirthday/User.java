@@ -2,9 +2,7 @@ package ru.whohasbirthday;
 
 import java.util.Date;
 
-/**
- * Created by rgimadeev on 26.07.2017.
- */
+
 public class User extends Date {
     public String getName() {
         return name;
