@@ -120,16 +120,16 @@ public class UserRepository {
                 Date curDate=formatter.parse(cd);// перевод текущей даты в формате String в формат Date( для сравнения с датами пользователя)
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(dt);//установление даты в календаре для вычисление первой даты(для кол-во оставшихся дней до дня рождения)
-                cal.set(Calendar.HOUR_OF_DAY, 0);
-                cal.set(Calendar.MINUTE, 0);
-                cal.set(Calendar.SECOND, 0);
-                cal.set(Calendar.MILLISECOND, 0);
+                cal.set(Calendar.HOUR_OF_DAY, 0);// обнуление времени для точности вычисления дней до дня рождения
+                cal.set(Calendar.MINUTE, 0);//обнуление минут
+                cal.set(Calendar.SECOND, 0);//обнуление секунд
+                cal.set(Calendar.MILLISECOND, 0);//обнуление миллисекунд
                 Calendar cal2 = Calendar.getInstance();
                 cal2.setTime(dt2);//установление даты в календаре для вычисления второй даты(для кол-ва оставшихся дней до дня рождения)
-                cal2.set(Calendar.HOUR_OF_DAY, 0);
-                cal2.set(Calendar.MINUTE, 0);
-                cal2.set(Calendar.SECOND, 0);
-                cal2.set(Calendar.MILLISECOND, 0);
+                cal2.set(Calendar.HOUR_OF_DAY, 0);// обнуление времени для точности вычисления дней до дня рождения
+                cal2.set(Calendar.MINUTE, 0);//обнуление минут
+                cal2.set(Calendar.SECOND, 0);//обнуление секунд
+                cal2.set(Calendar.MILLISECOND, 0);//обнуление миллисекунд
                 long diff = cal.getTimeInMillis() - cal2.getTimeInMillis();
                 long days = Math.round(diff / (1000L*60L*60L*24L));//миллисекунды / (24ч * 60мин * 60сек * 1000мс)
                 Calendar cal3 = Calendar.getInstance();//для определения конечной даты
